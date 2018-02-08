@@ -83,6 +83,7 @@ func (p *performance) GetController() []types.PerfController {
 			result = append(result, item)
 		}
 	}
+
 	return result
 }
 
