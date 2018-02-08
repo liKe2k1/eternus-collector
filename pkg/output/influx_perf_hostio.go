@@ -1,7 +1,6 @@
 package output
 
 import (
-	"fmt"
 	"log"
 	"time"
 
