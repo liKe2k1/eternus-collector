@@ -1,6 +1,6 @@
 package types
 
-type cfg struct {
+type ConfigLayout struct {
 	Storage map[string]*struct {
 		Host  string
 		Label string
@@ -12,6 +12,8 @@ type cfg struct {
 		User        string
 		Pass        string
 		Database    string
+
 		Sslnoverify bool
+		Precision 	string
 	}
-}{}
+}

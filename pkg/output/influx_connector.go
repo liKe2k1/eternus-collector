@@ -1,27 +1,29 @@
 package output
 
 import "log"
+import "github.com/like2k1/eternus-collector/pkg/types"
 import "github.com/influxdata/influxdb/client/v2"
 
-func InfluxDb(address, user, pass, database, precision string) (client.Client, client.BatchPoints) {
-	if precision == "" {
-		precision = "s"
+func InfluxDb(cfg types.ConfigLayout) (client.Client, client.BatchPoints) {
+	if cfg.Influx.Precision == "" {
+		cfg.Influx.Precision = "s"
 	}
 
 	c, err := client.NewHTTPClient(client.HTTPConfig{
-		Addr:               address,
-		Username:           user,
-		Password:           pass,
-		InsecureSkipVerify: true,
+		Addr:               cfg.Influx.Host,
+		Username:           cfg.Influx.User,
+		Password:           cfg.Influx.Pass,
+		InsecureSkipVerify: cfg.Influx.Sslnoverify,
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	bp, err := client.NewBatchPoints(client.BatchPointsConfig{
-		Database:  database,
-		Precision: precision,
+		Database:  cfg.Influx.Database,
+		Precision: cfg.Influx.Precision,
 	})
+
 	if err != nil {
 		log.Fatal(err)
 	}
