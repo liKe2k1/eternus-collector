@@ -21,7 +21,7 @@ func NewPerformance(connector *remote.Telnet) *performance {
 	return p
 }
 
-func Performance(cfg types.ConfigLayout) *performance {
+func Performance(cfg types.ConfigStorage) *performance {
 	p := new(performance)
 	p.t = remote.NewTelnet(cfg.Host, cfg.User, cfg.Pass)
 	return p
