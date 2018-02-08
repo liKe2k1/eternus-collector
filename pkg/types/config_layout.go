@@ -1,7 +1,7 @@
 package types
 
 type ConfigLayout struct {
-	Storage map[string]*struct {
+	Storage map[string] *struct {
 		Host  string
 		Label string
 		User  string

@@ -23,7 +23,7 @@ func NewPerformance(connector *remote.Telnet) *performance {
 
 func Performance(cfg types.ConfigLayout) *performance {
 	p := new(performance)
-	p.t = remote.NewTelnet(cfg.Storage[k].Host, cfg.Storage[k].User, cfg.Storage[k].Pass)
+	p.t = remote.NewTelnet(cfg.Host, cfg.User, cfg.Pass)
 	return p
 }
 
