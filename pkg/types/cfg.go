@@ -1,6 +1,6 @@
 package types
 
-var cfg = struct {
+type cfg struct {
 	Storage map[string]*struct {
 		Host  string
 		Label string
