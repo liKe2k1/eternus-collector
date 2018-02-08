@@ -5,7 +5,6 @@ import (
 	"time"
 	"go/types"
 
-	"github.com/like2k1/eternus-collector/internal/output"
 	"github.com/like2k1/eternus-collector/internal/types"
 )
 
