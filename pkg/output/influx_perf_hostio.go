@@ -5,7 +5,7 @@ import (
 	"time"
 	"go/types"
 
-	"github.com/like2k1/eternus-collector/internal/types"
+	"github.com/like2k1/eternus-collector/pkg/types"
 )
 
 func InfluxPerfHostIo(hostname string, data []types.PerfHostIO) {

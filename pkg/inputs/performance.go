@@ -6,8 +6,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/like2k1/eternus-collector/internal/remote"
-	"github.com/like2k1/eternus-collector/internal/types"
+	"github.com/like2k1/eternus-collector/pkg/remote"
+	"github.com/like2k1/eternus-collector/pkg/types"
 )
 
 type performance struct {
