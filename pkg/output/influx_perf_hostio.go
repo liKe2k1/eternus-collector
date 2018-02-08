@@ -3,14 +3,14 @@ package output
 import (
 	"log"
 	"time"
-	"go/types"
-
+	"github.com/influxdata/influxdb/client/v2"
 	"github.com/like2k1/eternus-collector/pkg/types"
+
 )
 
 func InfluxPerfHostIo(hostname string, data []types.PerfHostIO) {
 
-	c, bp := output.InfluxDb("", "", "", "", "s")
+	c, bp := InfluxDb("", "", "", "", "s")
 	
 	for _, elem := range data {
 
