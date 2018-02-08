@@ -9,7 +9,7 @@ import (
 	"github.com/influxdata/influxdb/client/v2"
 )
 
-func InfluxPerfHostIo(cfg *struct {
+func InfluxPerfDisk(cfg *struct {
 	Host  string;
 	Label string;
 	User  string;
@@ -27,28 +27,17 @@ func InfluxPerfHostIo(cfg *struct {
 	c, bp := InfluxDb(influx)
 
 	for _, elem := range data {
-
 		tags := map[string]string{
 			"host": cfg.Label,
 			"name": elem.Name,
 		}
 		fields := map[string]interface{}{
-			"idx":                   elem.Idx,
-			"iops_read":             elem.IopsRead,
-			"iops_write":            elem.IopsWrite,
-			"throughput_read":       elem.ThroughputRead,
-			"throughput_write":      elem.ThroughputWrite,
-			"response_time_read":    elem.ResponseTimeRead,
-			"response_time_write":   elem.ResponseTimeWrite,
-			"processing_time_read":  elem.ProcessingTimeRead,
-			"processing_time_write": elem.ProcessingTimeWrite,
-			"cache_hit_rate_read":   elem.CacheHitRateRead,
-			"cache_hit_rate_write":  elem.CacheHitRateWrite,
-			"cache_prefetch":        elem.Prefech,
+			"idx":       elem.Idx,
+			"busy_rate": elem.BusyRate,
 		}
 
 		pt, err := client.NewPoint(
-			"eternus-perf-volume-host-io",
+			"eternus-perf-disk",
 			tags,
 			fields,
 			time.Now(),

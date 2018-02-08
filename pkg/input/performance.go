@@ -24,10 +24,10 @@ func (p *performance) GetHostIO() []types.PerfHostIO {
 
 	t := remote.NewTelnet(p.cfg.Host, p.cfg.User, p.cfg.Pass)
 	defer t.Close()
+	t.Open()
 
 	data, err := t.Send("show performance -type host-io")
 	t.CheckErr(err)
-
 	s := t.BytesToString(data)
 
 	scanner := bufio.NewScanner(strings.NewReader(s))
@@ -40,7 +40,8 @@ func (p *performance) GetHostIO() []types.PerfHostIO {
 			res := volumeData.FindStringSubmatch(scanner.Text())
 			item := types.PerfHostIO{}
 			item.Idx, err = strconv.Atoi(res[1])
-			item.Name = strings.TrimSpace(res[2])
+			item.Name = strings.TrimSpace(res[
+			"host": hostname,2])
 			item.IopsRead, err = strconv.Atoi(res[3])
 			item.IopsWrite, err = strconv.Atoi(res[4])
 			item.ThroughputRead, err = strconv.Atoi(res[5])
@@ -62,6 +63,7 @@ func (p *performance) GetController() []types.PerfController {
 
 	t := remote.NewTelnet(p.cfg.Host, p.cfg.User, p.cfg.Pass)
 	defer t.Close()
+	t.Open()
 
 	data, err := t.Send("show performance -type cm")
 	t.CheckErr(err)
@@ -79,11 +81,9 @@ func (p *performance) GetController() []types.PerfController {
 			item.Name = strings.TrimSpace(res[1])
 			item.BusyRate, err = strconv.Atoi(res[2])
 			item.CopyReminderCount, err = strconv.ParseFloat(res[3], 32)
-
 			result = append(result, item)
 		}
 	}
-
 	return result
 }
 
@@ -91,6 +91,7 @@ func (p *performance) GetDisk() []types.PerfDisk {
 
 	t := remote.NewTelnet(p.cfg.Host, p.cfg.User, p.cfg.Pass)
 	defer t.Close()
+	t.Open()
 
 	data, err := t.Send("show performance -type disks")
 	t.CheckErr(err)

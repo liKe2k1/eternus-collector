@@ -63,7 +63,6 @@ func (c *Telnet) Open() (bool, error) {
 
 func (c *Telnet) Close() {
 	c.sendln(c.t, "exit")
-
 	c.t.Close()
 }
 
