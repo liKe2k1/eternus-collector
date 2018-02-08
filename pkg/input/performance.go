@@ -12,22 +12,20 @@ import (
 
 type performance struct {
 	t *remote.Telnet
-	cfg *types.ConfigLayout
+	cfg *struct { Host string; Label string; User string; Pass string }
 }
 
-func NewPerformance(connector *remote.Telnet) *performance {
+func Performance(cfg *struct { Host string; Label string; User string; Pass string }) *performance {
 	p := new(performance)
-	p.t = connector
-	return p
-}
-
-func Performance(cfg types.ConfigStorage) *performance {
-	p := new(performance)
-	p.t = remote.NewTelnet(cfg.Host, cfg.User, cfg.Pass)
+	p.cfg = cfg
 	return p
 }
 
 func (p *performance) GetHostIO() []types.PerfHostIO {
+
+	p.t = remote.NewTelnet(p.cfg.Host, p.cfg.User, p.cfg.Pass)
+	defer p.t.Close()
+
 	data, err := p.t.Send("show performance -type host-io")
 	p.t.CheckErr(err)
 	s := p.t.BytesToString(data)
@@ -61,6 +59,9 @@ func (p *performance) GetHostIO() []types.PerfHostIO {
 
 func (p *performance) GetController() []types.PerfController {
 
+	p.t = remote.NewTelnet(p.cfg.Host, p.cfg.User, p.cfg.Pass)
+	defer p.t.Close()
+
 	data, err := p.t.Send("show performance -type cm")
 	p.t.CheckErr(err)
 	s := p.t.BytesToString(data)
@@ -83,6 +84,10 @@ func (p *performance) GetController() []types.PerfController {
 }
 
 func (p *performance) GetDisk() []types.PerfDisk {
+
+	p.t = remote.NewTelnet(p.cfg.Host, p.cfg.User, p.cfg.Pass)
+	defer p.t.Close()
+
 	data, err := p.t.Send("show performance -type disks")
 	p.t.CheckErr(err)
 	s := p.t.BytesToString(data)
