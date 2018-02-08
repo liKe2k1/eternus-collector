@@ -22,7 +22,7 @@ func InfluxPerfDisk(cfg *struct {
 	Sslnoverify bool;
 	Precision   string
 
-}, data []types.PerfHostIO) {
+}, data []types.PerfDisk) {
 
 	c, bp := InfluxDb(influx)
 

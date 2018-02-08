@@ -22,7 +22,7 @@ func InfluxPerfController(cfg *struct {
 	Sslnoverify bool;
 	Precision   string
 
-}, data []types.PerfHostIO) {
+}, data []types.PerfController) {
 
 	c, bp := InfluxDb(influx)
 
