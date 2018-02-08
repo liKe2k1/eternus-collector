@@ -12,11 +12,19 @@ import (
 
 type performance struct {
 	t *remote.Telnet
+	cfg *types.ConfigLayout
 }
 
 func NewPerformance(connector *remote.Telnet) *performance {
 	p := new(performance)
 	p.t = connector
+	return p
+}
+
+func init(cfg types.ConfigLayout) *performance {
+
+	p := new(performance)
+	p.t = remote.NewTelnet(cfg.Storage[k].Host, cfg.Storage[k].User, cfg.Storage[k].Pass)
 	return p
 }
 
