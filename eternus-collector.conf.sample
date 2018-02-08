@@ -1,0 +1,20 @@
+; Eternus DX100 S3
+
+[storage "DX100S3-P"]
+host=1.2.3.4
+label="DX100S3-Primary"
+user=root
+pass=root
+
+[storage "DX100S3-M"]
+host=1.2.3.5
+label="DX100S3-Mirror"
+user=root
+pass=root
+
+[influx]
+address=https://influxdb:8086
+sslnoverify=true
+user=root
+pass=root
+database=eternus_stats
