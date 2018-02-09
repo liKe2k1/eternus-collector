@@ -40,8 +40,7 @@ Examples:
   eternus-collector controller
 
   # fetch disk performance data
-  eternus-collector disk 
-
+  eternus-collector disk
 `
 
 func usageExit(rc int) {
