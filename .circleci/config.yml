@@ -31,6 +31,6 @@ jobs:
 
       - run: |
             docker login -u $DOCKER_USER -p $DOCKER_PASS
-            docker build -t like2k1/eternus-collector:$CIRCLE_BRANCH .
-            docker push like2k1/eternus-collector:$CIRCLE_BRANCH
+            docker build -t like2k1/eternus-collector:latest .
+            docker push like2k1/eternus-collector:latest
 
