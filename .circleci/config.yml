@@ -21,3 +21,7 @@ jobs:
           key: v1-pkg-cache
           paths:
             - "/go/pkg"
+
+      - store_artifacts:
+          path: /workdir/eternus-collector
+          destination: eternus-collector
