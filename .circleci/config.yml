@@ -23,5 +23,5 @@ jobs:
             - "/go/pkg"
 
       - store_artifacts:
-          path: /workdir/eternus-collector
+          path: ./workdir/eternus-collector
           destination: eternus-collector
