@@ -9,6 +9,9 @@ workdir:
 build:
 	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o workdir/eternus-collector .
 
+build-image:
+	docker build . -t eternus-collector
+
 test: test-all
 
 test-all:
