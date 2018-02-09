@@ -1,6 +1,12 @@
 package types
 
 type ConfigLayout struct {
+
+	Global struct {
+		Daemon bool
+		Interval int
+	}
+
 	Storage map[string] *struct {
 		Host  string
 		Label string

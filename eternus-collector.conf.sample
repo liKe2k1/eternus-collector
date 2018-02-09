@@ -1,17 +1,23 @@
-; Eternus DX100 S3
+; Global Variables
+; [global]
+; daemon=true
+; interval=30
 
+; Eternus DX100 S3 - Primary
 [storage "DX100S3-P"]
 host=1.2.3.4
 label="DX100S3-Primary"
 user=root
 pass=root
 
+; Eternus DX100 S3 - Mirror
 [storage "DX100S3-M"]
 host=1.2.3.5
 label="DX100S3-Mirror"
 user=root
 pass=root
 
+; Influx Database
 [influx]
 address=https://influxdb:8086
 sslnoverify=true
