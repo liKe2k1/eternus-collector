@@ -25,3 +25,10 @@ jobs:
       - store_artifacts:
           path: ./workdir/eternus-collector
           destination: eternus-collector
+
+      - run: |
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+
+      - run: docker build -t like2k1/eternus-collector:$CIRCLE_BRANCH .
+      - run: docker push like2k1/eternus-collector:$CIRCLE_BRANCH
+
