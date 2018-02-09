@@ -30,7 +30,7 @@ jobs:
           docker_layer_caching: true
 
       - run: |
-            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker login -u $DOCKER_USER --password-stdin $DOCKER_PASS
             docker build -t like2k1/eternus-collector:$CIRCLE_BRANCH .
             docker push like2k1/eternus-collector:$CIRCLE_BRANCH
 
