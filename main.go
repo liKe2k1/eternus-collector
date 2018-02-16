@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 
 	"gopkg.in/gcfg.v1"
 
 	"github.com/like2k1/eternus-collector/pkg/input"
 	"github.com/like2k1/eternus-collector/pkg/output"
 	"github.com/like2k1/eternus-collector/pkg/types"
-	"time"
 )
 
 var fConfig = flag.String("config", "/etc/eternus-collector/eternus-collector.conf", "Config file path (Default: /etc/eternus-collector/eternus-collector.conf)")
@@ -100,8 +100,6 @@ func main() {
 
 		time.Sleep(time.Second * time.Duration(cfg.Global.Interval))
 		}
-
-
 
 	if len(args) > 0 {
 		switch args[0] {
