@@ -79,17 +79,14 @@ func main() {
 
 		for {
 			for k := range cfg.Storage {
+
+
 				t := remote.NewTelnet(cfg.Storage[k].Host, cfg.Storage[k].User, cfg.Storage[k].Pass)
 				t.Open()
 
-				log.Println("Processing Volumes")
 				p := input.Performance(*t)
 				output.InfluxPerfHostIo(cfg.Storage[k], cfg.Influx, p.GetHostIO())
-
-				log.Println("Processing Controller")
 				output.InfluxPerfController(cfg.Storage[k], cfg.Influx, p.GetController())
-
-				log.Println("Processing Disk")
 				output.InfluxPerfDisk(cfg.Storage[k], cfg.Influx, p.GetDisk())
 
 				t.Close()
