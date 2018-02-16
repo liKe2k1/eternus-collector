@@ -8,6 +8,7 @@ import (
 
 	"github.com/like2k1/eternus-collector/pkg/remote"
 	"github.com/like2k1/eternus-collector/pkg/types"
+	"fmt"
 )
 
 type performance struct {
@@ -34,8 +35,10 @@ func (p *performance) GetHostIO() []types.PerfHostIO {
 
 		var volumeDataDx100 = regexp.MustCompile(`\s+(?P<id>[0-9]+)\s+(?P<name>[\w\s-]+)\s+(?P<read_iops>[\d]+)\s+(?P<write_iops>[\d]+)\s+(?P<throughput_read>[\d]+)\s+(?P<throughput_write>[\d]+)\s+(?P<response_time_read>[\d]+)\s+(?P<response_time_write>[\d]+)\s+(?P<processing_time_read>[\d]+)\s+(?P<processing_time_write>[\d]+)\s+(?P<cache_hit_rate_read>[\d]+)\s+(?P<cache_hit_rate_write>[\d]+)\s+(?P<prefech>[\d]+)`)
 		if volumeDataDx100.MatchString(scanner.Text()) {
+
 			res := volumeDataDx100.FindStringSubmatch(scanner.Text())
 			item := types.PerfHostIO{}
+			fmt.Println(res)
 			item.Idx, err = strconv.Atoi(res[1])
 			item.Name = strings.TrimSpace(res[2])
 			item.IopsRead, err = strconv.Atoi(res[3])
@@ -50,6 +53,7 @@ func (p *performance) GetHostIO() []types.PerfHostIO {
 			item.CacheHitRateWrite, err = strconv.Atoi(res[12])
 			item.Prefech, err = strconv.Atoi(res[12])
 			result = append(result, item)
+
 		} else {
 
 			var volumeDataDx90 = regexp.MustCompile(`\s+(?P<id>[0-9]+)\s+(?P<name>[\w\s-]+)\s+(?P<read_iops>[\d]+)\s+(?P<write_iops>[\d]+)\s+(?P<throughput_read>[\d]+)\s+(?P<throughput_write>[\d]+)\s+(?P<response_time_read>[\d]+)\s+(?P<response_time_write>[\d]+)\s+(?P<cache_hit_rate_read>[\d]+)\s+(?P<cache_hit_rate_write>[\d]+)\s+(?P<cache_hit_rate_prefetch>[\d]+)`)
