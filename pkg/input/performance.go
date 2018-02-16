@@ -38,7 +38,6 @@ func (p *performance) GetHostIO() []types.PerfHostIO {
 
 			res := volumeDataDx100.FindStringSubmatch(scanner.Text())
 			item := types.PerfHostIO{}
-			fmt.Println(res)
 			item.Idx, err = strconv.Atoi(res[1])
 			item.Name = strings.TrimSpace(res[2])
 			item.IopsRead, err = strconv.Atoi(res[3])
