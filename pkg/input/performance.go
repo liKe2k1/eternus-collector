@@ -8,7 +8,6 @@ import (
 
 	"github.com/like2k1/eternus-collector/pkg/remote"
 	"github.com/like2k1/eternus-collector/pkg/types"
-	"fmt"
 )
 
 type performance struct {
@@ -33,10 +32,10 @@ func (p *performance) GetHostIO() []types.PerfHostIO {
 
 	for scanner.Scan() {
 
-		var volumeDataDx100 = regexp.MustCompile(`\s+(?P<id>[0-9]+)\s+(?P<name>[\w\s-]+)\s+(?P<read_iops>[\d]+)\s+(?P<write_iops>[\d]+)\s+(?P<throughput_read>[\d]+)\s+(?P<throughput_write>[\d]+)\s+(?P<response_time_read>[\d]+)\s+(?P<response_time_write>[\d]+)\s+(?P<processing_time_read>[\d]+)\s+(?P<processing_time_write>[\d]+)\s+(?P<cache_hit_rate_read>[\d]+)\s+(?P<cache_hit_rate_write>[\d]+)\s+(?P<prefech>[\d]+)`)
-		if volumeDataDx100.MatchString(scanner.Text()) {
+		var volumeData = regexp.MustCompile(`\s+(?P<id>[0-9]+)\s+(?P<name>[\w\s-]+)\s+(?P<read_iops>[\d]+)\s+(?P<write_iops>[\d]+)\s+(?P<throughput_read>[\d]+)\s+(?P<throughput_write>[\d]+)\s+(?P<response_time_read>[\d]+)\s+(?P<response_time_write>[\d]+)\s+(?P<processing_time_read>[\d]+)\s+(?P<processing_time_write>[\d]+)\s+(?P<cache_hit_rate_read>[\d]+)\s+(?P<cache_hit_rate_write>[\d]+)\s+(?P<prefech>[\d]+)`)
+		if volumeData.MatchString(scanner.Text()) {
 
-			res := volumeDataDx100.FindStringSubmatch(scanner.Text())
+			res := volumeData.FindStringSubmatch(scanner.Text())
 			item := types.PerfHostIO{}
 			item.Idx, err = strconv.Atoi(res[1])
 			item.Name = strings.TrimSpace(res[2])
