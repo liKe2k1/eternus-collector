@@ -110,7 +110,7 @@ func main() {
 				t := remote.NewTelnet(cfg.Storage[k].Host, cfg.Storage[k].User, cfg.Storage[k].Pass)
 				t.Open()
 
-				p := input.Performance(cfg.Storage[k])
+				p := input.Performance(t)
 				output.InfluxPerfHostIo(cfg.Storage[k], cfg.Influx, p.GetHostIO())
 
 				t.Close()
@@ -121,7 +121,7 @@ func main() {
 				t := remote.NewTelnet(cfg.Storage[k].Host, cfg.Storage[k].User, cfg.Storage[k].Pass)
 				t.Open()
 
-				p := input.Performance(cfg.Storage[k])
+				p := input.Performance(t)
 				output.InfluxPerfController(cfg.Storage[k], cfg.Influx, p.GetController())
 
 				t.Close()
@@ -133,7 +133,7 @@ func main() {
 				t := remote.NewTelnet(cfg.Storage[k].Host, cfg.Storage[k].User, cfg.Storage[k].Pass)
 				t.Open()
 
-				p := input.Performance(cfg.Storage[k])
+				p := input.Performance(t)
 				output.InfluxPerfDisk(cfg.Storage[k], cfg.Influx, p.GetDisk())
 
 				t.Close()
