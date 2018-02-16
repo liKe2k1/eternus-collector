@@ -11,24 +11,20 @@ import (
 )
 
 type performance struct {
-	cfg *struct { Host string; Label string; User string; Pass string }
+	t remote.Telnet
 }
 
-func Performance(cfg *struct { Host string; Label string; User string; Pass string }) *performance {
+func Performance(t remote.Telnet) *performance {
 	p := new(performance)
-	p.cfg = cfg
+	p.t = t
 	return p
 }
 
 func (p *performance) GetHostIO() []types.PerfHostIO {
 
-	t := remote.NewTelnet(p.cfg.Host, p.cfg.User, p.cfg.Pass)
-	defer t.Close()
-	t.Open()
-
-	data, err := t.Send("show performance -type host-io")
-	t.CheckErr(err)
-	s := t.BytesToString(data)
+	data, err := p.t.Send("show performance -type host-io")
+	p.t.CheckErr(err)
+	s := p.t.BytesToString(data)
 
 	scanner := bufio.NewScanner(strings.NewReader(s))
 
@@ -60,14 +56,10 @@ func (p *performance) GetHostIO() []types.PerfHostIO {
 
 func (p *performance) GetController() []types.PerfController {
 
-	t := remote.NewTelnet(p.cfg.Host, p.cfg.User, p.cfg.Pass)
-	defer t.Close()
-	t.Open()
+	data, err := p.t.Send("show performance -type cm")
+	p.t.CheckErr(err)
 
-	data, err := t.Send("show performance -type cm")
-	t.CheckErr(err)
-
-	s := t.BytesToString(data)
+	s := p.t.BytesToString(data)
 
 	scanner := bufio.NewScanner(strings.NewReader(s))
 	var result = []types.PerfController{}
@@ -88,15 +80,10 @@ func (p *performance) GetController() []types.PerfController {
 
 func (p *performance) GetDisk() []types.PerfDisk {
 
-	t := remote.NewTelnet(p.cfg.Host, p.cfg.User, p.cfg.Pass)
-	defer t.Close()
-	t.Open()
+	data, err := p.t.Send("show performance -type disks")
+	p.t.CheckErr(err)
 
-	data, err := t.Send("show performance -type disks")
-	t.CheckErr(err)
-
-	s := t.BytesToString(data)
-
+	s := p.t.BytesToString(data)
 
 	scanner := bufio.NewScanner(strings.NewReader(s))
 	var result = []types.PerfDisk{}

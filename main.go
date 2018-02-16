@@ -70,33 +70,41 @@ func main() {
 		os.Exit(1)
 	}
 
+
 	if (*fDaemonize == true) || (cfg.Global.Daemon == true) {
 		if cfg.Global.Interval == 0 {
 			cfg.Global.Interval = 60
 		}
+
+		t := remote.NewTelnet(cfg.Storage[k].Host, cfg.Storage[k].User, cfg.Storage[k].Pass)
+		t.Open()
+
 		log.Println("Pulling data every", cfg.Global.Interval, "seconds")
 		for {
 			log.Println("Processing Volumes")
 			for k := range cfg.Storage {
 				log.Println("+",k)
-				p := input.Performance(cfg.Storage[k])
+				p := input.Performance(t)
 				output.InfluxPerfHostIo(cfg.Storage[k], cfg.Influx, p.GetHostIO())
 			}
 			log.Println("Processing Controller")
 			for k := range cfg.Storage {
 				log.Println("+",k)
-				p := input.Performance(cfg.Storage[k])
+				p := input.Performance(t)
 				output.InfluxPerfController(cfg.Storage[k], cfg.Influx, p.GetController())
 			}
 
 			log.Println("Processing Disk")
 			for k := range cfg.Storage {
 				log.Println("+",k)
-				p := input.Performance(cfg.Storage[k])
+				p := input.Performance(t)
 				output.InfluxPerfDisk(cfg.Storage[k], cfg.Influx, p.GetDisk())
 			}
 			time.Sleep(time.Second * time.Duration(cfg.Global.Interval))
 		}
+
+
+		t.Close()
 	}
 
 
