@@ -6,9 +6,11 @@ import (
 	"log"
 	"os"
 	"time"
+
 	"gopkg.in/gcfg.v1"
 	"github.com/like2k1/eternus-collector/pkg/input"
 	"github.com/like2k1/eternus-collector/pkg/output"
+	"github.com/like2k1/eternus-collector/pkg/remote"
 	"github.com/like2k1/eternus-collector/pkg/types"
 )
 
