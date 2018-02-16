@@ -50,6 +50,7 @@ func (p *performance) GetHostIO() []types.PerfHostIO {
 			result = append(result, item)
 		}
 
+
 		var volumeDataDx100 = regexp.MustCompile(`\s+(?P<id>[0-9]+)\s+(?P<name>[\w\s-]+)\s+(?P<read_iops>[\d]+)\s+(?P<write_iops>[\d]+)\s+(?P<throughput_read>[\d]+)\s+(?P<throughput_write>[\d]+)\s+(?P<response_time_read>[\d]+)\s+(?P<response_time_write>[\d]+)\s+(?P<processing_time_read>[\d]+)\s+(?P<processing_time_write>[\d]+)\s+(?P<cache_hit_rate_read>[\d]+)\s+(?P<cache_hit_rate_write>[\d]+)\s+(?P<prefech>[\d]+)`)
 		if volumeDataDx100.MatchString(scanner.Text()) {
 			res := volumeDataDx100.FindStringSubmatch(scanner.Text())
